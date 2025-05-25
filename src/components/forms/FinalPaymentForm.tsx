@@ -118,7 +118,7 @@ export default function FinalPaymentForm() {
     return (
         <div className="card">
             <div className="card-header text-center">
-                <CheckCircle2 className="w-12 h-12 mx-auto mb-4 text-gradient" />
+                <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 text-gradient" />
                 <h3 className="card-title">Финальный шаг</h3>
                 <p className="card-description">
                     Выберите столик и завершите оплату
@@ -126,14 +126,14 @@ export default function FinalPaymentForm() {
             </div>
             <div className="card-content">
                 <Form {...(form as any)}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
                         <FormField
                             control={form.control}
                             name="table_preferences"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="form-label">
-                                        <Users className="w-4 h-4 inline mr-2" />
+                                        <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                         С кем вы хотите сидеть за одним столом?
                                     </FormLabel>
                                     <FormControl>
@@ -154,7 +154,7 @@ export default function FinalPaymentForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="form-label">
-                                        <MessageCircle className="w-4 h-4 inline mr-2" />
+                                        <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                         Телеграмм ники ваших друзей
                                     </FormLabel>
                                     <FormControl>
@@ -175,7 +175,7 @@ export default function FinalPaymentForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="form-label">
-                                        <Hash className="w-4 h-4 inline mr-2" />
+                                        <Hash className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                         Сколько людей за вашим столом?
                                     </FormLabel>
                                     <FormControl>
@@ -188,7 +188,7 @@ export default function FinalPaymentForm() {
                                             onChange={(e) => field.onChange(parseInt(e.target.value))}
                                         />
                                     </FormControl>
-                                    <p className="text-sm text-secondary mt-1">
+                                    <p className="text-xs sm:text-sm text-secondary mt-1">
                                         Максимум 12 человек за столом
                                     </p>
                                     <FormMessage />
@@ -198,7 +198,7 @@ export default function FinalPaymentForm() {
 
                         <FormItem>
                             <FormLabel className="form-label">
-                                <FileText className="w-4 h-4 inline mr-2" />
+                                <FileText className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                 Квитанция об оплате (PDF)
                             </FormLabel>
                             <FileUpload

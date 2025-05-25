@@ -14,9 +14,9 @@ export default function HeroSection() {
 
       <div className="container">
         <div className="hero-content">
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient backdrop-blur text-white text-sm font-medium">
-              <Sparkles className="w-4 h-4" />
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient backdrop-blur text-white text-xs sm:text-sm font-medium">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
               Только 200 мест
             </div>
           </div>
@@ -31,25 +31,25 @@ export default function HeroSection() {
             Финальный отсчёт до легендарного вечера, который запомнится навсегда
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <div className="flex items-center gap-2 text-sm">
-              <Calendar className="w-4 h-4 text-primary" />
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
               <span>22 июня 2025</span>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <MapPin className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
               <span>Almaty</span>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
             <Link href="/payment/prepayment">
-              <button className="btn btn-primary">
+              <button className="btn btn-primary w-full sm:w-auto">
                 Зарегистрироваться сейчас
               </button>
             </Link>
             <Link href="/#about">
-              <button className="btn btn-secondary">
+              <button className="btn btn-secondary w-full sm:w-auto">
                 Узнать больше
               </button>
             </Link>

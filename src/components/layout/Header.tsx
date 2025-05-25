@@ -11,8 +11,9 @@ export default function Header() {
         <header className="header">
             <div className="container header-container">
                 <Link href="/" className="header-logo">
-                    <Sparkles className="w-6 h-6" />
-                    SDU PROM 2025
+                    <Sparkles className="w-5 h-5" />
+                    <span className="hidden sm:inline">SDU PROM 2025</span>
+                    <span className="sm:hidden">SDU 2025</span>
                 </Link>
 
                 <nav className="header-nav">
@@ -45,8 +46,8 @@ export default function Header() {
             </div>
 
             {isMenuOpen && (
-                <div className="fixed inset-0 bg-background z-50 pt-20">
-                    <nav className="flex flex-col items-center gap-6 p-8">
+                <div className="mobile-menu">
+                    <nav>
                         <Link href="/#about" onClick={() => setIsMenuOpen(false)}>
                             О событии
                         </Link>
@@ -63,7 +64,7 @@ export default function Header() {
                             FAQ
                         </Link>
                         <Link href="/payment/prepayment" onClick={() => setIsMenuOpen(false)}>
-                            <button className="btn btn-primary">
+                            <button className="btn btn-primary w-full">
                                 Зарегистрироваться
                             </button>
                         </Link>

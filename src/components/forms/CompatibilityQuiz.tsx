@@ -31,14 +31,14 @@ export default function CompatibilityQuiz({ onComplete }: CompatibilityQuizProps
     return (
         <div className="card">
             <div className="card-header text-center">
-                <Brain className="w-12 h-12 mx-auto mb-4 text-gradient" />
+                <Brain className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 text-gradient" />
                 <h3 className="card-title">Анкета для рассадки</h3>
                 <p className="card-description">
                     Поможем найти идеальную компанию за столом
                 </p>
             </div>
             <div className="card-content">
-                <div className="quiz-progress mb-6">
+                <div className="quiz-progress mb-4 sm:mb-6">
                     {Array.from({ length: questions.length }).map((_, i) => (
                         <div
                             key={i}
@@ -48,17 +48,17 @@ export default function CompatibilityQuiz({ onComplete }: CompatibilityQuizProps
                 </div>
 
                 <div className="mb-2">
-                    <p className="text-sm text-secondary">
+                    <p className="text-xs sm:text-sm text-secondary">
                         Вопрос {currentQuestion + 1} из {questions.length}
                     </p>
-                    <div className="text-sm text-primary font-semibold">
+                    <div className="text-xs sm:text-sm text-primary font-semibold">
                         {Math.round(progress)}% завершено
                     </div>
                 </div>
 
-                <h4 className="text-xl font-semibold mb-6">{currentQ.question}</h4>
+                <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">{currentQ.question}</h4>
 
-                <div className="radio-group mb-8">
+                <div className="radio-group mb-6 sm:mb-8">
                     {currentQ.options.map((option, index) => (
                         <div
                             key={index}
@@ -81,7 +81,7 @@ export default function CompatibilityQuiz({ onComplete }: CompatibilityQuizProps
                     {currentQuestion < questions.length - 1 ? (
                         <>
                             Далее
-                            <ArrowRight className="w-5 h-5 ml-2" />
+                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                         </>
                     ) : (
                         'Завершить анкету'

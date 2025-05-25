@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { FAQ_ITEMS } from '@/lib/constants'
 import { ChevronDown, HelpCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export default function FAQSection() {
     const [openItem, setOpenItem] = useState<number | null>(null)
@@ -27,13 +28,14 @@ export default function FAQSection() {
                                     className="accordion-trigger"
                                     onClick={() => toggleItem(index)}
                                 >
-                                    <span className="flex items-center gap-3">
-                                        <HelpCircle className="w-5 h-5 text-primary" />
+                                    <span className="flex items-center gap-2 sm:gap-3 text-left pr-2">
+                                        <HelpCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                                         {item.question}
                                     </span>
                                     <ChevronDown
-                                        className={`w-5 h-5 transition-transform duration-300 ${openItem === index ? 'rotate-180' : ''
-                                            }`}
+                                        className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 flex-shrink-0 ${
+                                            openItem === index ? 'rotate-180' : ''
+                                        }`}
                                     />
                                 </button>
                                 {openItem === index && (
@@ -45,8 +47,8 @@ export default function FAQSection() {
                         ))}
                     </div>
 
-                    <div className="mt-12 text-center">
-                        <p className="text-lg mb-4">Остались вопросы?</p>
+                    <div className="mt-8 sm:mt-12 text-center">
+                        <p className="text-base sm:text-lg mb-3 sm:mb-4">Остались вопросы?</p>
                         <Link href="https://t.me/yermanovberik" target="_blank" rel="noopener noreferrer">
                             <button className="btn btn-primary">
                                 Написать организаторам
@@ -58,5 +60,3 @@ export default function FAQSection() {
         </section>
     )
 }
-
-import Link from 'next/link'

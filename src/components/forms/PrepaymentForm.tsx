@@ -115,16 +115,16 @@ export default function PrepaymentForm() {
     return (
         <>
             <div className="card">
-                <div className="card-content p-8">
+                <div className="card-content">
                     <Form {...form as any}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
                             <FormField
                                 control={form.control}
                                 name="full_name"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="form-label">
-                                            <User className="w-4 h-4 inline mr-2" />
+                                            <User className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                             ФИО
                                         </FormLabel>
                                         <FormControl>
@@ -135,14 +135,14 @@ export default function PrepaymentForm() {
                                 )}
                             />
 
-                            <div className="grid md:grid-cols-2 gap-6">
+                            <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                                 <FormField
                                     control={form.control}
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel className="form-label">
-                                                <Mail className="w-4 h-4 inline mr-2" />
+                                                <Mail className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                                 SDU Email
                                             </FormLabel>
                                             <FormControl>
@@ -159,7 +159,7 @@ export default function PrepaymentForm() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel className="form-label">
-                                                <Mail className="w-4 h-4 inline mr-2" />
+                                                <Mail className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                                 Персональная почта
                                             </FormLabel>
                                             <FormControl>
@@ -171,14 +171,14 @@ export default function PrepaymentForm() {
                                 />
                             </div>
 
-                            <div className="grid md:grid-cols-2 gap-6">
+                            <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                                 <FormField
                                     control={form.control}
                                     name="phone"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel className="form-label">
-                                                <Phone className="w-4 h-4 inline mr-2" />
+                                                <Phone className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                                 Номер телефона
                                             </FormLabel>
                                             <FormControl>
@@ -195,7 +195,7 @@ export default function PrepaymentForm() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel className="form-label">
-                                                <Send className="w-4 h-4 inline mr-2" />
+                                                <Send className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                                 Telegram ник
                                             </FormLabel>
                                             <FormControl>
@@ -213,7 +213,7 @@ export default function PrepaymentForm() {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="form-label">
-                                            <Users className="w-4 h-4 inline mr-2" />
+                                            <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                             Есть ли у вас предпочтения по команде?
                                         </FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -234,7 +234,7 @@ export default function PrepaymentForm() {
 
                             <FormItem>
                                 <FormLabel className="form-label">
-                                    <FileText className="w-4 h-4 inline mr-2" />
+                                    <FileText className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                                     Квитанция об оплате (PDF)
                                 </FormLabel>
                                 <FileUpload

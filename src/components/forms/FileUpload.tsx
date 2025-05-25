@@ -46,21 +46,21 @@ export default function FileUpload({
             <input {...getInputProps()} />
             {acceptedFiles.length > 0 ? (
                 <div className="text-center">
-                    <CheckCircle className="w-12 h-12 mx-auto mb-3 text-primary" />
-                    <p className="font-semibold text-lg mb-1">{acceptedFiles[0].name}</p>
-                    <p className="text-sm text-secondary">
+                    <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-primary" />
+                    <p className="font-semibold text-base sm:text-lg mb-1">{acceptedFiles[0].name}</p>
+                    <p className="text-xs sm:text-sm text-secondary">
                         {(acceptedFiles[0].size / 1024 / 1024).toFixed(2)} MB
                     </p>
                 </div>
             ) : (
                 <div className="text-center">
-                    <Upload className="w-12 h-12 mx-auto mb-3 text-secondary animate-bounce" />
-                    <p className="font-medium mb-1">
+                    <Upload className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-secondary animate-bounce" />
+                    <p className="font-medium text-sm sm:text-base mb-1">
                         {isDragActive
                             ? 'Отпустите файл здесь'
                             : 'Перетащите файл сюда'}
                     </p>
-                    <p className="text-sm text-secondary mb-3">
+                    <p className="text-xs sm:text-sm text-secondary mb-2 sm:mb-3">
                         или нажмите для выбора
                     </p>
                     <p className="text-xs text-secondary">

@@ -16,7 +16,7 @@ export default function ArtistsSection() {
                     Один из этих артистов выйдет на сцену. Угадай кто?
                 </p>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 max-w-6xl mx-auto">
                     {ARTISTS.map((artist) => (
                         <div
                             key={artist.id}
@@ -35,17 +35,17 @@ export default function ArtistsSection() {
                             </div>
                             {hoveredArtist === artist.id && (
                                 <div className="absolute inset-0 bg-gradient opacity-40 flex items-center justify-center">
-                                    <div className="text-white text-6xl animate-pulse">?</div>
+                                    <div className="text-white text-4xl sm:text-6xl animate-pulse">?</div>
                                 </div>
                             )}
                         </div>
                     ))}
                 </div>
 
-                <div className="mt-8 text-center">
-                    <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-surface backdrop-blur">
-                        <Music className="w-5 h-5 text-gradient" />
-                        <span className="text-gradient font-semibold">
+                <div className="mt-6 sm:mt-8 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-surface backdrop-blur">
+                        <Music className="w-4 h-4 sm:w-5 sm:h-5 text-gradient" />
+                        <span className="text-gradient font-semibold text-sm sm:text-base">
                             Голосуй при регистрации и влияй на выбор!
                         </span>
                     </div>
