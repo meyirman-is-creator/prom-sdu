@@ -12,7 +12,7 @@ export default function LoginPage() {
         <>
             <Header />
             <main className="min-h-screen bg-gray-50 py-12">
-                <div className="container mx-auto max-w-md px-4">
+                <div className="container max-w-md px-4">
                     <h1 className="mb-8 text-center text-3xl font-bold">Вход в систему</h1>
                     <LoginForm />
                 </div>
