@@ -16,9 +16,9 @@ import {
     FormMessage,
     FormDescription,
 } from '@/components/ui/form'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/components/ui/use-toast'
 import { auth } from '@/lib/auth'
+import { Shield, Lock, CheckCircle, AlertCircle } from 'lucide-react'
 
 const formSchema = z.object({
     password: z.string()
@@ -86,31 +86,70 @@ export default function CreatePasswordForm() {
     }
 
     if (validating) {
-        return <div>Проверка ссылки...</div>
+        return (
+            <div className="loading-container">
+                <div className="text-center">
+                    <div className="spinner mx-auto mb-4"></div>
+                    <p className="text-gradient font-semibold animate-pulse">Проверка ссылки...</p>
+                </div>
+            </div>
+        )
     }
 
+    const passwordStrength = form.watch('password')
+    const hasUpperCase = /[A-Z]/.test(passwordStrength)
+    const hasLowerCase = /[a-z]/.test(passwordStrength)
+    const hasNumber = /[0-9]/.test(passwordStrength)
+    const hasMinLength = passwordStrength?.length >= 8
+
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Создание пароля</CardTitle>
-                <CardDescription>
-                    Создайте пароль для доступа к личному кабинету
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
+        <div className="card max-w-md mx-auto">
+            <div className="card-header text-center">
+                <Shield className="w-12 h-12 mx-auto mb-4 text-gradient" />
+                <h3 className="card-title">Создание пароля</h3>
+                <p className="card-description">
+                    Создайте надежный пароль для доступа к личному кабинету
+                </p>
+            </div>
+            <div className="card-content">
                 <Form {...(form as any)}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                         <FormField
                             control={form.control}
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Новый пароль</FormLabel>
+                                    <FormLabel className="form-label">
+                                        <Lock className="w-4 h-4 inline mr-2" />
+                                        Новый пароль
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="••••••••" {...field} />
+                                        <Input
+                                            type="password"
+                                            className="form-input"
+                                            placeholder="••••••••"
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormDescription>
-                                        Минимум 8 символов, включая заглавные и строчные буквы, и цифры
+                                        <div className="mt-3 space-y-2">
+                                            <div className={`flex items-center gap-2 text-sm ${hasMinLength ? 'text-green-400' : 'text-secondary'}`}>
+                                                {hasMinLength ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+                                                Минимум 8 символов
+                                            </div>
+                                            <div className={`flex items-center gap-2 text-sm ${hasUpperCase ? 'text-green-400' : 'text-secondary'}`}>
+                                                {hasUpperCase ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+                                                Заглавная буква
+                                            </div>
+                                            <div className={`flex items-center gap-2 text-sm ${hasLowerCase ? 'text-green-400' : 'text-secondary'}`}>
+                                                {hasLowerCase ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+                                                Строчная буква
+                                            </div>
+                                            <div className={`flex items-center gap-2 text-sm ${hasNumber ? 'text-green-400' : 'text-secondary'}`}>
+                                                {hasNumber ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+                                                Цифра
+                                            </div>
+                                        </div>
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -122,21 +161,29 @@ export default function CreatePasswordForm() {
                             name="confirmPassword"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Подтвердите пароль</FormLabel>
+                                    <FormLabel className="form-label">
+                                        <Lock className="w-4 h-4 inline mr-2" />
+                                        Подтвердите пароль
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="••••••••" {...field} />
+                                        <Input
+                                            type="password"
+                                            className="form-input"
+                                            placeholder="••••••••"
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
 
-                        <Button type="submit" className="w-full" disabled={loading}>
+                        <Button type="submit" className="btn btn-primary w-full" disabled={loading}>
                             {loading ? 'Создание...' : 'Создать пароль'}
                         </Button>
                     </form>
                 </Form>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     )
 }

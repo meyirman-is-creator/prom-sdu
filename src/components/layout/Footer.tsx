@@ -1,33 +1,37 @@
 import Link from 'next/link'
-import { Instagram, MessageCircle } from 'lucide-react'
+import { Instagram, MessageCircle, Sparkles } from 'lucide-react'
 
 export default function Footer() {
     return (
-        <footer className="border-t border-slate-200 bg-white">
-            <div className="container py-8">
-                <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <footer className="footer">
+            <div className="container">
+                <div className="footer-content">
                     <div className="text-center md:text-left">
-                        <p className="text-sm text-slate-600">
-                            © 2025 SDU PROM. Организационный комитет SDU 2025
+                        <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
+                            <Sparkles className="w-5 h-5 text-gradient" />
+                            <span className="font-bold text-gradient">SDU PROM 2025</span>
+                        </div>
+                        <p className="footer-text">
+                            © 2025 Организационный комитет SDU
                         </p>
                     </div>
 
-                    <div className="flex items-center space-x-4">
+                    <div className="footer-links">
                         <Link
                             href="https://www.instagram.com/awesomeaydana/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-slate-600 hover:text-slate-900"
+                            className="footer-link"
                         >
-                            <Instagram className="h-5 w-5" />
+                            <Instagram className="w-5 h-5" />
                         </Link>
                         <Link
                             href="https://t.me/yermanovberik"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-slate-600 hover:text-slate-900"
+                            className="footer-link"
                         >
-                            <MessageCircle className="h-5 w-5" />
+                            <MessageCircle className="w-5 h-5" />
                         </Link>
                     </div>
                 </div>

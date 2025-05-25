@@ -178,6 +178,17 @@ function useToast() {
         }
     }, [state])
 
+    React.useEffect(() => {
+        const handleDismiss = (event: CustomEvent) => {
+            dispatch({ type: "DISMISS_TOAST", toastId: event.detail })
+        }
+        
+        window.addEventListener('toast-dismiss', handleDismiss as any)
+        return () => {
+            window.removeEventListener('toast-dismiss', handleDismiss as any)
+        }
+    }, [])
+
     return {
         ...state,
         toast,

@@ -1,14 +1,22 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Home } from 'lucide-react'
 
 export default function NotFound() {
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold">404</h1>
-            <p className="mt-4 text-xl">Страница не найдена</p>
-            <Link href="/" className="mt-8">
-                <Button>Вернуться на главную</Button>
-            </Link>
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="error-container">
+                <h1 className="error-title">404</h1>
+                <p className="error-message">Страница не найдена</p>
+                <p className="text-secondary mb-8">
+                    Похоже, вы заблудились на пути к выпускному
+                </p>
+                <Link href="/">
+                    <button className="btn btn-primary">
+                        <Home className="w-5 h-5 mr-2" />
+                        Вернуться на главную
+                    </button>
+                </Link>
+            </div>
         </div>
     )
 }

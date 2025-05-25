@@ -1,7 +1,10 @@
 export default function Loading() {
     return (
-        <div className="flex min-h-screen items-center justify-center">
-            <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-primary"></div>
+        <div className="loading-container">
+            <div className="text-center">
+                <div className="spinner mx-auto mb-4"></div>
+                <p className="text-gradient font-semibold animate-pulse">Загрузка...</p>
+            </div>
         </div>
     )
 }

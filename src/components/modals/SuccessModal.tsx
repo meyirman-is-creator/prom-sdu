@@ -1,12 +1,4 @@
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { CheckCircle } from 'lucide-react'
+import { CheckCircle, X } from 'lucide-react'
 
 interface SuccessModalProps {
     isOpen: boolean
@@ -21,22 +13,39 @@ export default function SuccessModal({
     title,
     description,
 }: SuccessModalProps) {
+    if (!isOpen) return null
+
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent>
-                <DialogHeader>
-                    <div className="flex justify-center mb-4">
-                        <CheckCircle className="h-16 w-16 text-green-500" />
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-content max-w-md" onClick={(e) => e.stopPropagation()}>
+                <button
+                    onClick={onClose}
+                    className="absolute right-4 top-4 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                >
+                    <X className="w-5 h-5" />
+                </button>
+
+                <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/20 mb-6">
+                        <CheckCircle className="w-12 h-12 text-green-400" />
                     </div>
-                    <DialogTitle className="text-center">{title}</DialogTitle>
-                    <DialogDescription className="text-center">
+
+                    <h3 className="text-2xl font-bold text-gradient mb-3">
+                        {title}
+                    </h3>
+
+                    <p className="text-lg text-secondary mb-8">
                         {description}
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex justify-center mt-4">
-                    <Button onClick={onClose}>Закрыть</Button>
+                    </p>
+
+                    <button
+                        onClick={onClose}
+                        className="btn btn-primary"
+                    >
+                        Закрыть
+                    </button>
                 </div>
-            </DialogContent>
-        </Dialog>
+            </div>
+        </div>
     )
 }

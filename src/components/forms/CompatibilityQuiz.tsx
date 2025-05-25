@@ -1,104 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
-
-const questions = [
-    {
-        id: 'social_preference',
-        question: 'Как вы обычно чувствуете себя в компании новых людей?',
-        options: [
-            'Мне нравится знакомиться с новыми людьми и быть в центре внимания',
-            'Зависит от настроения и ситуации',
-            'Предпочитаю находиться в кругу знакомых людей',
-        ],
-    },
-    {
-        id: 'conversation_style',
-        question: 'Вы бы предпочли:',
-        options: [
-            'Вести разговор и вовлекать всех в общую беседу',
-            'Спокойно участвовать и иногда вставлять комментарии',
-            'Слушать и наблюдать со стороны',
-        ],
-    },
-    {
-        id: 'performance_comfort',
-        question: 'Насколько вам комфортно выступать на публике?',
-        options: [
-            'Очень люблю выступать, мне это доставляет удовольствие',
-            'Могу, если попросят или будет подходящая компания',
-            'Предпочитаю не выступать на публике',
-        ],
-    },
-    {
-        id: 'singing_attitude',
-        question: 'Как вы относитесь к пению (караоке)?',
-        options: [
-            'Обожаю петь и делаю это при любой возможности',
-            'Пою иногда',
-            'Не пою и не люблю караоке',
-        ],
-    },
-    {
-        id: 'erudition_level',
-        question: 'Как бы вы оценили свою эрудицию?',
-        options: [
-            'Я знаю массу интересных фактов и обожаю интеллектуальные игры',
-            'У меня хороший запас знаний, и я иногда участвую в таких играх',
-            'Не считаю себя эрудитом и не увлекаюсь интеллектуальными играми',
-        ],
-    },
-    {
-        id: 'photography_preference',
-        question: 'Любите ли вы снимать на мероприятиях?',
-        options: [
-            'Да, мне нравится фиксировать интересные моменты и делать контент',
-            'Иногда снимаю, если что-то особенно любопытное происходит',
-            'Предпочитаю просто наслаждаться моментом и не отвлекаться на съёмку',
-        ],
-    },
-    {
-        id: 'improvisation_tendency',
-        question: 'Как бы вы оценили свою склонность к импровизации?',
-        options: [
-            'Я легко и охотно импровизирую, спонтанные идеи – моя стихия',
-            'Склонность к импровизации у меня средняя',
-            'Мне сложно импровизировать – предпочитаю заранее обдуманные сценарии',
-        ],
-    },
-    {
-        id: 'music_knowledge',
-        question: 'Как вы оцениваете свои знания в музыке?',
-        options: [
-            'Я отлично разбираюсь в музыке',
-            'Мои знания довольно хорошие, но в некоторых темах могу допускать ошибки',
-            'У меня базовые знания, которые позволяют отвечать на простые вопросы',
-        ],
-    },
-    {
-        id: 'meme_familiarity',
-        question: 'Насколько вы знакомы с миром мемов?',
-        options: [
-            'Я в курсе самых свежих мемов',
-            'Я знаком с популярными мемами',
-            'Мемы – не моя стихия',
-        ],
-    },
-    {
-        id: 'dance_willingness',
-        question: 'Готовы ли вы выйти на танцпол?',
-        options: [
-            'Да, с удовольствием!',
-            'Скорее да, но всё зависит от настроения',
-            'Предпочитаю наблюдать за танцующими',
-        ],
-    },
-]
+import { questions } from '@/lib/constants'
+import { Brain, ArrowRight } from 'lucide-react'
 
 interface CompatibilityQuizProps {
     onComplete: (answers: Record<string, string>) => void
@@ -122,39 +26,68 @@ export default function CompatibilityQuiz({ onComplete }: CompatibilityQuizProps
 
     const currentQ = questions[currentQuestion]
     const currentAnswer = answers[currentQ.id]
+    const progress = ((currentQuestion + 1) / questions.length) * 100
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Анкета для рассадки</CardTitle>
-                <p className="text-sm text-muted-foreground">
-                    Вопрос {currentQuestion + 1} из {questions.length}
+        <div className="card">
+            <div className="card-header text-center">
+                <Brain className="w-12 h-12 mx-auto mb-4 text-gradient" />
+                <h3 className="card-title">Анкета для рассадки</h3>
+                <p className="card-description">
+                    Поможем найти идеальную компанию за столом
                 </p>
-            </CardHeader>
-            <CardContent>
-                <div className="space-y-6">
-                    <h3 className="text-lg font-medium">{currentQ.question}</h3>
-
-                    <RadioGroup value={currentAnswer} onValueChange={handleAnswer}>
-                        {currentQ.options.map((option, index) => (
-                            <div key={index} className="flex items-start space-x-2 mb-3">
-                                <RadioGroupItem value={option} id={`option-${index}`} />
-                                <Label htmlFor={`option-${index}`} className="text-sm cursor-pointer">
-                                    {option}
-                                </Label>
-                            </div>
-                        ))}
-                    </RadioGroup>
-
-                    <Button
-                        onClick={handleNext}
-                        disabled={!currentAnswer}
-                        className="w-full"
-                    >
-                        {currentQuestion < questions.length - 1 ? 'Далее' : 'Завершить'}
-                    </Button>
+            </div>
+            <div className="card-content">
+                <div className="quiz-progress mb-6">
+                    {Array.from({ length: questions.length }).map((_, i) => (
+                        <div
+                            key={i}
+                            className={`quiz-progress-item ${i <= currentQuestion ? 'active' : ''}`}
+                        />
+                    ))}
                 </div>
-            </CardContent>
-        </Card>
+
+                <div className="mb-2">
+                    <p className="text-sm text-secondary">
+                        Вопрос {currentQuestion + 1} из {questions.length}
+                    </p>
+                    <div className="text-sm text-primary font-semibold">
+                        {Math.round(progress)}% завершено
+                    </div>
+                </div>
+
+                <h4 className="text-xl font-semibold mb-6">{currentQ.question}</h4>
+
+                <div className="radio-group mb-8">
+                    {currentQ.options.map((option, index) => (
+                        <div
+                            key={index}
+                            className={`radio-item ${currentAnswer === option ? 'selected' : ''}`}
+                            onClick={() => handleAnswer(option)}
+                        >
+                            <div className="radio-input" />
+                            <label className="flex-1 cursor-pointer">
+                                {option}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+
+                <button
+                    onClick={handleNext}
+                    disabled={!currentAnswer}
+                    className="btn btn-primary w-full"
+                >
+                    {currentQuestion < questions.length - 1 ? (
+                        <>
+                            Далее
+                            <ArrowRight className="w-5 h-5 ml-2" />
+                        </>
+                    ) : (
+                        'Завершить анкету'
+                    )}
+                </button>
+            </div>
+        </div>
     )
 }

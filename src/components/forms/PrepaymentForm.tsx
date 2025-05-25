@@ -22,11 +22,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { Card, CardContent } from '@/components/ui/card'
 import { useToast } from '@/components/ui/use-toast'
 import { api, uploadFile } from '@/lib/api'
 import FileUpload from '@/components/forms/FileUpload'
 import ArtistSelectionModal from '@/components/modals/ArtistSelectionModal'
+import { User, Mail, Phone, Users, FileText, Send } from 'lucide-react'
 
 const formSchema = z.object({
     full_name: z.string().min(1, 'Обязательное поле'),
@@ -70,10 +70,8 @@ export default function PrepaymentForm() {
 
         setLoading(true)
         try {
-            // Upload receipt
             const uploadResponse = await uploadFile(receiptFile, '/payments/upload-receipt')
 
-            // Submit prepayment
             const response = await api.post('/payments/prepayment', {
                 ...values,
                 receipt_url: uploadResponse.data.url,
@@ -116,33 +114,39 @@ export default function PrepaymentForm() {
 
     return (
         <>
-            <Card>
-                <CardContent className="p-6">
+            <div className="card">
+                <div className="card-content p-8">
                     <Form {...form as any}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                             <FormField
                                 control={form.control}
                                 name="full_name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>ФИО</FormLabel>
+                                        <FormLabel className="form-label">
+                                            <User className="w-4 h-4 inline mr-2" />
+                                            ФИО
+                                        </FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Иванов Иван Иванович" {...field} />
+                                            <Input className="form-input" placeholder="Иванов Иван Иванович" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
 
-                            <div className="grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 gap-6">
                                 <FormField
                                     control={form.control}
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>SDU Email</FormLabel>
+                                            <FormLabel className="form-label">
+                                                <Mail className="w-4 h-4 inline mr-2" />
+                                                SDU Email
+                                            </FormLabel>
                                             <FormControl>
-                                                <Input placeholder="example@stu.sdu.edu.kz" {...field} />
+                                                <Input className="form-input" placeholder="example@stu.sdu.edu.kz" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -154,9 +158,12 @@ export default function PrepaymentForm() {
                                     name="personal_email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Персональная почта</FormLabel>
+                                            <FormLabel className="form-label">
+                                                <Mail className="w-4 h-4 inline mr-2" />
+                                                Персональная почта
+                                            </FormLabel>
                                             <FormControl>
-                                                <Input placeholder="example@gmail.com" {...field} />
+                                                <Input className="form-input" placeholder="example@gmail.com" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -164,15 +171,18 @@ export default function PrepaymentForm() {
                                 />
                             </div>
 
-                            <div className="grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 gap-6">
                                 <FormField
                                     control={form.control}
                                     name="phone"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Номер телефона</FormLabel>
+                                            <FormLabel className="form-label">
+                                                <Phone className="w-4 h-4 inline mr-2" />
+                                                Номер телефона
+                                            </FormLabel>
                                             <FormControl>
-                                                <Input placeholder="+7 777 123 45 67" {...field} />
+                                                <Input className="form-input" placeholder="+7 777 123 45 67" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -184,9 +194,12 @@ export default function PrepaymentForm() {
                                     name="telegram_nick"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Telegram ник</FormLabel>
+                                            <FormLabel className="form-label">
+                                                <Send className="w-4 h-4 inline mr-2" />
+                                                Telegram ник
+                                            </FormLabel>
                                             <FormControl>
-                                                <Input placeholder="@username" {...field} />
+                                                <Input className="form-input" placeholder="@username" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -199,10 +212,13 @@ export default function PrepaymentForm() {
                                 name="team_preference"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Есть ли у вас предпочтения по команде?</FormLabel>
+                                        <FormLabel className="form-label">
+                                            <Users className="w-4 h-4 inline mr-2" />
+                                            Есть ли у вас предпочтения по команде?
+                                        </FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
-                                                <SelectTrigger>
+                                                <SelectTrigger className="form-select">
                                                     <SelectValue placeholder="Выберите вариант" />
                                                 </SelectTrigger>
                                             </FormControl>
@@ -217,22 +233,25 @@ export default function PrepaymentForm() {
                             />
 
                             <FormItem>
-                                <FormLabel>Квитанция об оплате (PDF)</FormLabel>
+                                <FormLabel className="form-label">
+                                    <FileText className="w-4 h-4 inline mr-2" />
+                                    Квитанция об оплате (PDF)
+                                </FormLabel>
                                 <FileUpload
                                     onFileSelect={setReceiptFile}
                                     acceptedTypes=".pdf"
-                                    maxSize={10 * 1024 * 1024} // 10MB
+                                    maxSize={10 * 1024 * 1024}
                                 />
                                 <FormMessage />
                             </FormItem>
 
-                            <Button type="submit" className="w-full" disabled={loading}>
-                                {loading ? 'Обработка...' : 'Отправить'}
+                            <Button type="submit" className="btn btn-primary w-full" disabled={loading}>
+                                {loading ? 'Обработка...' : 'Отправить регистрацию'}
                             </Button>
                         </form>
                     </Form>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             <ArtistSelectionModal
                 isOpen={showArtistModal}

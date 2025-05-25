@@ -15,12 +15,12 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/components/ui/use-toast'
 import { api, uploadFile } from '@/lib/api'
 import { useAuth } from '@/hooks/useAuth'
 import FileUpload from '@/components/forms/FileUpload'
 import CompatibilityQuiz from '@/components/forms/CompatibilityQuiz'
+import { Users, MessageCircle, Hash, FileText, CheckCircle2 } from 'lucide-react'
 
 const formSchema = z.object({
     table_preferences: z.string().optional(),
@@ -77,10 +77,8 @@ export default function FinalPaymentForm() {
     async function submitPayment(values: z.infer<typeof formSchema>, quizAnswers?: any) {
         setLoading(true)
         try {
-            // Upload receipt
             const uploadResponse = await uploadFile(receiptFile!, '/payments/upload-receipt')
 
-            // Submit final payment
             await api.post('/payments/final', {
                 ...values,
                 receipt_url: uploadResponse.data.url,
@@ -110,25 +108,40 @@ export default function FinalPaymentForm() {
     }
 
     if (showQuiz) {
-        return <CompatibilityQuiz onComplete={handleQuizComplete} />
+        return (
+            <div className="max-w-2xl mx-auto">
+                <CompatibilityQuiz onComplete={handleQuizComplete} />
+            </div>
+        )
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Доплата за выпускной</CardTitle>
-            </CardHeader>
-            <CardContent>
+        <div className="card">
+            <div className="card-header text-center">
+                <CheckCircle2 className="w-12 h-12 mx-auto mb-4 text-gradient" />
+                <h3 className="card-title">Финальный шаг</h3>
+                <p className="card-description">
+                    Выберите столик и завершите оплату
+                </p>
+            </div>
+            <div className="card-content">
                 <Form {...(form as any)}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                         <FormField
                             control={form.control}
                             name="table_preferences"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>С кем вы хотите сидеть за одним столом?</FormLabel>
+                                    <FormLabel className="form-label">
+                                        <Users className="w-4 h-4 inline mr-2" />
+                                        С кем вы хотите сидеть за одним столом?
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Имена друзей" {...field} />
+                                        <Input
+                                            className="form-input"
+                                            placeholder="Имена друзей через запятую"
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -140,9 +153,16 @@ export default function FinalPaymentForm() {
                             name="telegram_contacts"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Телеграмм ник и айдишки ваших друзей</FormLabel>
+                                    <FormLabel className="form-label">
+                                        <MessageCircle className="w-4 h-4 inline mr-2" />
+                                        Телеграмм ники ваших друзей
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="@friend1, @friend2" {...field} />
+                                        <Input
+                                            className="form-input"
+                                            placeholder="@friend1, @friend2"
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -154,9 +174,13 @@ export default function FinalPaymentForm() {
                             name="table_size"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Сколько людей за вашим столом? (максимум 12)</FormLabel>
+                                    <FormLabel className="form-label">
+                                        <Hash className="w-4 h-4 inline mr-2" />
+                                        Сколько людей за вашим столом?
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
+                                            className="form-input"
                                             type="number"
                                             min={1}
                                             max={12}
@@ -164,27 +188,33 @@ export default function FinalPaymentForm() {
                                             onChange={(e) => field.onChange(parseInt(e.target.value))}
                                         />
                                     </FormControl>
+                                    <p className="text-sm text-secondary mt-1">
+                                        Максимум 12 человек за столом
+                                    </p>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
 
                         <FormItem>
-                            <FormLabel>Квитанция об оплате (PDF)</FormLabel>
+                            <FormLabel className="form-label">
+                                <FileText className="w-4 h-4 inline mr-2" />
+                                Квитанция об оплате (PDF)
+                            </FormLabel>
                             <FileUpload
                                 onFileSelect={setReceiptFile}
                                 acceptedTypes=".pdf"
-                                maxSize={10 * 1024 * 1024} // 10MB
+                                maxSize={10 * 1024 * 1024}
                             />
                             <FormMessage />
                         </FormItem>
 
-                        <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? 'Обработка...' : 'Отправить'}
+                        <Button type="submit" className="btn btn-primary w-full" disabled={loading}>
+                            {loading ? 'Обработка...' : 'Завершить оплату'}
                         </Button>
                     </form>
                 </Form>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     )
 }

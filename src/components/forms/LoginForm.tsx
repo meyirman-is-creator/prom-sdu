@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import Link from 'next/link'
+import { Mail, Lock, LogIn } from 'lucide-react'
 
 const formSchema = z.object({
     email: z.string().email('Введите корректный email'),
@@ -29,9 +30,7 @@ export default function LoginForm() {
         setLoading(true)
         setError('')
         try {
-            // Здесь будет вызов API
             console.log('Login attempt:', values)
-            // Временная заглушка
             setTimeout(() => {
                 router.push('/payment/final')
             }, 1000)
@@ -43,17 +42,21 @@ export default function LoginForm() {
     }
 
     return (
-        <div className="card">
-            <div className="card-header">
+        <div className="card max-w-md mx-auto">
+            <div className="card-header text-center">
+                <LogIn className="w-12 h-12 mx-auto mb-4 text-gradient" />
                 <h3 className="card-title">Вход в систему</h3>
                 <p className="card-description">
                     Введите ваши данные для доступа к доплате
                 </p>
             </div>
             <div className="card-content">
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="form-group">
-                        <label htmlFor="email" className="form-label">Email</label>
+                        <label htmlFor="email" className="form-label">
+                            <Mail className="w-4 h-4 inline mr-2" />
+                            Email
+                        </label>
                         <input
                             id="email"
                             type="email"
@@ -62,14 +65,17 @@ export default function LoginForm() {
                             {...form.register('email')}
                         />
                         {form.formState.errors.email && (
-                            <p className="text-sm text-red-800 mt-2">
+                            <p className="text-sm text-danger mt-2">
                                 {form.formState.errors.email.message}
                             </p>
                         )}
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password" className="form-label">Пароль</label>
+                        <label htmlFor="password" className="form-label">
+                            <Lock className="w-4 h-4 inline mr-2" />
+                            Пароль
+                        </label>
                         <input
                             id="password"
                             type="password"
@@ -78,7 +84,7 @@ export default function LoginForm() {
                             {...form.register('password')}
                         />
                         {form.formState.errors.password && (
-                            <p className="text-sm text-red-800 mt-2">
+                            <p className="text-sm text-danger mt-2">
                                 {form.formState.errors.password.message}
                             </p>
                         )}
@@ -99,8 +105,8 @@ export default function LoginForm() {
                     </button>
                 </form>
 
-                <div className="mt-4 text-center text-sm">
-                    <Link href="/auth/forgot-password" className="link-primary">
+                <div className="mt-6 text-center">
+                    <Link href="/auth/forgot-password" className="text-primary hover:underline">
                         Забыли пароль?
                     </Link>
                 </div>
